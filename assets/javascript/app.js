@@ -1,6 +1,8 @@
 $(document).ready(function() {
+    
     $("#start").on("click", function() {
     	$("#start").remove();
+        game.loadQuestion();
     });
 
     var questions = [{
@@ -48,8 +50,67 @@ $(document).ready(function() {
         answers: ["Kashyyyk", "Korriban", "Corellia", "Kamino"],
         correctAnswer: "Kashyyyk",
         image: "../images/chewbacca.jpg"
-    }
     }];
+
+    var game = {
+        questions: questions,
+        currentQuestion: 0,
+        counter: 30,
+        correct: 0,
+        incorrect: 0,
+
+        // Decrements counter and displays it.
+        countdown: function() {
+            this.counter--;
+            $("#counter").html(this.counter);
+
+            // If counter reaches 0, time is up
+            if (this.counter <= 0) {
+                console.log("TIME UP!");
+                this.timeUp();
+            }
+        },
+        loadQuestion: function() {
+
+            timer = setInterval(this.countdown(), 1000);
+            console.log(timer);
+
+            // Store nuber of answers for current question
+            var answersLength = questions[this.currentQuestion].answers.length;
+            
+            // Display current question on the page
+            $("#subwrapper").html("<h2>" + questions[this.currentQuestion].question + "</h2>");
+
+            // Create buttons for each answer and display them on the page
+            for (var i = 0; i < answersLength; i++) {
+                var currentAnswer = questions[this.currentQuestion].answers[i];
+
+                $('#subwrapper').append('<button class="answer-button" id="button-'+i+'" data-name="'+currentAnswer+'">'+currentAnswer+'</button>');
+            }
+
+        },
+        nextQuestion: function() {
+
+        },
+        timeUp: function() {
+
+        },
+        results: function() {
+
+        },
+        clicked: function() {
+
+        },
+        answeredCorrectly: function() {
+
+        },
+        answeredIncorrectly: function() {
+
+        },
+        reset: function() {
+
+        }
+    }
 });
 
 
